@@ -1,0 +1,12 @@
+body{
+	background-image:url('../img/noisy_grid.png');
+	padding: 20px 60px 20px 60px;
+}
+
+body fieldset{
+	margin-bottom:100px;
+}
+
+body h2{
+	margin-bottom:50px;
+}

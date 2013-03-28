@@ -1,0 +1,28 @@
+{
+  "name": "Chrome Utility Extension",
+  "version": "0.7",
+  "description": "Fill out CASCAiD forms",
+  "homepage_url": "https://raw.github.com/stachow/cascaid-chrome-extension-util",
+  "update_url": "https://raw.github.com/stachow/cascaid-chrome-extension-util/master/update.xml",
+  "content_scripts": [{ "all_frames": true, "matches": ["*://*/*"], "js": [ "js/lib/jquery.js", "js/lib/jquery-ui.js", "js/content/content.js"]} ],
+  "background": { "scripts": ["js/lib/jquery.js", "js/background/seedData.js", "js/background/storageService.js",   "js/background/background.js"] },
+  "page_action" :
+  {
+    "default_icon" : "img/green-arrow.png",
+    "default_title" : "Autofill details (Ctrl+Q)"
+  },
+  "permissions" : [
+    "tabs"
+  ], 
+  "commands": {
+    "_execute_page_action": {
+      "suggested_key": {
+        "default": "Ctrl+Q",
+        "windows": "Ctrl+Q",
+        "mac": "Ctrl+Q"
+      }
+    }
+  },
+  "options_page": "options.html",
+  "manifest_version": 2
+}

@@ -1,0 +1,115 @@
+<!doctype html>
+<html ng-app="app" ng-csp>
+<head>
+	<title>Options</title>
+	<link rel="stylesheet" type="text/css" href="css/options.css" />
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+	<link rel="stylesheet" type="text/css" href="css/bootstrap-switch.css" />
+</head>
+<body>
+
+	<div ng-controller="OptionsCtrl">
+		<form class="form-horizontal" name="myForm">
+
+			<fieldset ng-repeat="form in data">
+				<h2>{{form.name}}&nbsp;<small class="muted">({{form.id}})</small></h2>
+				<div class="control-group">
+					<label class="control-label">When address matches</label>
+					<div class="controls">
+						<span class="lead text-info" ng-show="!showAdvanced" cc-show-hide-opts="{show: 'fadeIn', hide: 'hide'}" >
+							{{form.match}}
+						</span>	
+						<input type="text" ng-model="form.match" cc-show-hide="showAdvanced" cc-show-hide-opts="{show: 'fadeIn', hide: 'hide'}" class="span9" ng-change="save()"/>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">Enabled</label>
+			    	<div class="controls">
+			    		<label class="radio inline">
+							<input ng-model="form.enabled" ng-value="true" type="radio" ng-change="save()">
+							On
+						</label>
+						<label class="radio inline">
+							<input ng-model="form.enabled" ng-value="false" type="radio" ng-change="save()">
+							Off
+						</label>
+					</div>
+				</div>			
+
+				<div class="control-group">
+					<label class="control-label">Auto run</label>
+			    	<div class="controls">
+			    		<label class="radio inline">
+							<input ng-model="form.autorun" ng-value="true" type="radio" ng-change="save()">
+							On
+						</label>
+						<label class="radio inline">
+							<input ng-model="form.autorun" ng-value="false" type="radio" ng-change="save()">
+							Off
+						</label>
+					</div>
+				</div>			
+
+				<div ng-repeat="control in form.controls" class="control-group">
+					<label class="control-label"><em>{{$index + 1}}</em> {{control.name}}</label>
+					<div class="controls">
+						<ng-switch on="control.type">
+							<input  ng-switch-when="text"  		type="text" 	ng-model="control.value" class="span2" ng-change="save()"/>
+							<input  ng-switch-when="password"   type="password" 	ng-model="control.value" class="span2" ng-change="save()"/>
+							<input 	ng-switch-when="pause" type="number" 	ng-model="control.value" class="span2" ng-change="save()"/>
+							<input 	ng-switch-when="goto"  type="number" 	ng-model="control.value" class="span2" ng-change="save()"/>
+							<select ng-switch-when="select" 	ng-model="control.value" ng-options="i for i in ['first', 'second', 'last']" class="span2" ng-change="save()"></select>
+							<select ng-switch-when="checkbox" 	ng-model="control.value" ng-options="i for i in ['checked', 'not checked']" class="span2" ng-change="save()"></select>
+							<select ng-switch-when="button" 	ng-model="control.value" ng-options="i for i in ['', 'click']" class="span2" ng-change="save()"></select>
+						</ng-switch>
+						&nbsp;&nbsp;
+						<span ng-hide='control.type == "pause" || control.type == "goto"'> 
+							<input type="text" ng-model="control.selector" cc-show-hide="showAdvanced" class="input-xxlarge" ng-change="save()"/>
+						</span>
+						&nbsp;
+						<small class="muted">
+							<ng-switch on="control.type">
+								<span ng-switch-when="text">text box</span>
+								<span ng-switch-when="password">text box (password)</span>
+								<span ng-switch-when="pause">pause</span>
+								<span ng-switch-when="select">drop down</span>
+								<span ng-switch-when="checkbox">checkbox</span>
+								<span ng-switch-when="button">button</span>
+								<span ng-switch-when="goto">then go to step</span>
+							</ng-switch>
+						<span ng-show="control.type=='text'">
+							&nbsp;&nbsp;(unique? <input type="checkbox" ng-model="control.uniqueFactor" ng-change="save()"/>)	
+						</span>
+						</small>
+							
+					</div>	
+				</div>
+
+				<div class="control-group">
+			    	<div class="controls">
+						<button ng-click="resetForm($index)" class="btn">Reset</button>	
+						&nbsp;&nbsp;
+						<a ng-click="toggleAdvanced()">toggle advanced</a>
+					</div>
+				</div>
+
+				
+			</fieldset>
+
+			<hr />
+			<fieldset>
+				<button ng-click="reset()" class="btn">Reset All</button>
+			</fieldset>
+		</form>
+	</div>
+	
+	<script src="js/lib/jquery.js"></script>
+	<script src="js/lib/jquery-ui.js"></script>
+	<script src="js/lib/angular.js"></script>
+	<script src="js/background/seedData.js"></script>
+	<script src="js/background/storageService.js"></script>
+	<script src="js/options/app.js"></script>
+	<script src="js/options/OptionsCtrl.js"></script>
+	<script src="js/options/FormCtrl.js"></script>
+</body>
+</html>
