@@ -1,2 +1,2 @@
-cascaid-chrome-extentsion-util
+chrome-extentsion-util
 ==============================
