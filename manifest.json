@@ -1,6 +1,6 @@
 {
   "name": "Chrome Utility Extension",
-  "version": "0.7",
+  "version": "0.8",
   "description": "Fill out CASCAiD forms",
   "homepage_url": "https://raw.github.com/stachow/cascaid-chrome-extension-util",
   "update_url": "https://raw.github.com/stachow/cascaid-chrome-extension-util/master/update.xml",
